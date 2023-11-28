@@ -1,0 +1,11 @@
+PROBLEMAS PARA COMPILAR:
+
+Al compilar, hay dos problemas:
+
+1- BL3GLWidget.h no encuentra #include "model.h".
+2- BL3GLWidget.cpp hace patr.load("../models/Patricio.obj");
+
+Lo he arreglado cambiando a #include "./Model/model.h" y a "./models/Patricio.obj".
+
+Sim embargo, no se debería de poder modificar la clase BL3GLWidget. Una solución sin modificarlas podría ser colocar model.h y model.cpp
+en la misma carpeta de proyecto, y heredar la función donde se hace patr.load("../models/Patricio.obj") para cambiarlo.
