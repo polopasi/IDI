@@ -11,13 +11,11 @@ in float matshin;
 uniform mat4 proj;
 uniform mat4 view;
 uniform mat4 TG;
-uniform vec3 posFoco;
-uniform vec3 colorFoco;
+uniform vec3 posFocus;
+uniform vec3 colorFocus;
 
 // Valors per als components que necessitem del focus de llum
-vec3 colorFocus = vec3(0.8, 0.8, 0.8);
 vec3 llumAmbient = vec3(0.2, 0.2, 0.2);
-vec3 posFocus = vec3(1, 0, 1);  // en SCA
 
 out vec3 fcolor;
 
@@ -83,14 +81,13 @@ void main()
     mat3 normalMatrix = inverse (transpose (mat3 (view * TG)));
     vec3 normSCO = normalMatrix * normal;
 
-    vec4 posFocusSCO = view * vec4(posFoco, 1);
+    vec4 posFocusSCO = view * vec4(posFocus, 1);
     vec4 vertexSCO = view * TG * vec4 (vertex, 1.0);
     vec3 L = posFocusSCO.xyz - vertexSCO.xyz;
 
     //ATENCION: Hay que normalizar los vectores N y L con la funcion normalize.
     normSCO = normalize(normSCO);
     L = normalize(L);
-    colorFocus = colorFoco;
     fcolor = Ambient() + Difus (normSCO, L , colorFocus) + Especular (normSCO, L, vertexSCO, colorFocus);
     gl_Position = proj * view * TG * vec4 (vertex, 1.0);
 }

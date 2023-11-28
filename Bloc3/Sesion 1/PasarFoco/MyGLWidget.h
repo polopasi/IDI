@@ -14,10 +14,10 @@ class MyGLWidget : public BL3GLWidget {
     virtual void iniMaterialTerra ();
     virtual void initializeGL ( );
 
-    virtual void pasarInfoFoco();
+    void pasarInfoFoco();
 
   private:
     int printOglError(const char file[], int line, const char func[]);
 
-    GLuint colorFocoLoc, posFocoLoc;
+    GLuint color_foco_Loc, pos_foco_Loc;
 };

@@ -90,22 +90,20 @@ void MyGLWidget::iniMaterialTerra ()
 
 void MyGLWidget::initializeGL ()
 {
-  // Cal inicialitzar l'ús de les funcions d'OpenGL
-  initializeOpenGLFunctions();  
-
-  glClearColor(0.5, 0.7, 1.0, 1.0); // defineix color de fons (d'esborrat)
-  glEnable(GL_DEPTH_TEST);
-  carregaShaders();
-  creaBuffersPatricio();
-  creaBuffersTerraIParet();
-
-  iniEscena();
-  iniCamera();
+  BL3GLWidget::initializeGL();
+  //"Enlazo" los uniforms del vertex Shader a mis GLuint.
+  pos_foco_Loc = glGetUniformLocation (program->programId(), "posFocus");
+  color_foco_Loc = glGetUniformLocation (program->programId(), "colorFocus");
+  pasarInfoFoco();
 }
 
-void MyGLWidget::pasarInfoFoco ()
+
+void MyGLWidget::pasarInfoFoco()
 {
-  glUniformMatrix3fv (colorFocoLoc, 1, GL_FALSE, &colorFoco[0]);
-  glUniformMatrix3fv (posFocoLoc, 1, GL_FALSE, &posFoco[0]);
+  glm::vec3 posicion_foco = glm::vec3 (1., 0., 1.);
+  glUniform3fv(pos_foco_Loc, 1, &posicion_foco[0]);
+  
+  glm::vec3 color_foco = glm::vec3(0.8, 0.8, 0.8);
+  glUniform3fv(color_foco_Loc, 1, &color_foco[0]);
 }
 
